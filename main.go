@@ -110,6 +110,18 @@ func main() {
 			EnvVars: []string{"DOCKER_IMAGE_NAME"},
 		},
 		&cli.StringFlag{
+			Name:    "arrange.type",
+			Usage:   "Arrange type,Orchestration method, 0 represents docker-compose, 1 represents docker stack. Default is 0.",
+			EnvVars: []string{"ARRANGE_TYPE"},
+			Value: "0",
+		},
+		&cli.StringFlag{
+			Name:    "service.name",
+			Usage:   "The service name defined during the 'docker stack deploy -c ...'.",
+			EnvVars: []string{"SERVICE_NAME"},
+			Value: "prod",
+		},
+		&cli.StringFlag{
 			Name:    "commit.sha",
 			Usage:   "git commit sha",
 			EnvVars: []string{"DRONE_COMMIT_SHA"},
@@ -275,6 +287,8 @@ func run(c *cli.Context) error {
 			Status:  c.String("build.status"),
 			Commitrep: c.String("commit.rep"),
 			Imagename: c.String("docker.image"),
+			Arrangetype: c.String("arrange.type"),
+			Servicename: c.String("service.name"),
 			Commit:  c.String("commit.sha"),
 			Branch:  c.String("commit.branch"),
 			Author:  c.String("commit.author"),

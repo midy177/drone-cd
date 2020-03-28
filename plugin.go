@@ -37,6 +37,8 @@ type (
 		Number  int
 		Commitrep string
 		Imagename string
+		Arrangetype string
+		Servicename string
 		Commit  string
 		Message string
 		Branch  string
@@ -241,7 +243,7 @@ func (p *Plugin) Exec() error {
 	}
 
 	if len(p.Config.Source) == 0 {
-		p.Config.Source =[]string{"/autodeploy.sh"}
+		p.Config.Source =[]string{"/deploy.sh"}
 		switchcd = true
 		if len(p.Build.Commitrep) == 0 || len(p.Build.Imagename) == 0{
 			return errors.New("missing Commitrep or Imagename config")
@@ -366,7 +368,7 @@ func (p *Plugin) Exec() error {
 
 				//start auto CD
 				if switchcd {
-					outStrs, errStrs, _, errs := ssh.Run(fmt.Sprintf("cd %s && sudo chmod +x autodeploy.sh && sudo ./autodeploy.sh %s %s",target,p.Build.Commitrep,p.Build.Imagename), p.Config.CommandTimeout)
+					outStrs, errStrs, _, errs := ssh.Run(fmt.Sprintf("cd %s && sudo chmod +x deploy.sh && sudo ./deploy.sh %s %s %s %s",target,p.Build.Commitrep,p.Build.Imagename,p.Build.Arrangetype,p.Build.Servicename), p.Config.CommandTimeout)
 					if outStrs != "" {
 						p.log(host, "startcd: ", outStrs)
 					}
