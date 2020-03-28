@@ -263,3 +263,13 @@ make test
 
 追加内容：
 在drone-scp的基础上增加对docker-compose编排的自动化支持
+
+Mac下编译Linux, Windows平台的64位可执行程序：
+$ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
+$ CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build
+Linux下编译Mac, Windows平台的64位可执行程序：
+$ CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build
+$ CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build
+Windows下编译Mac, Linux平台的64位可执行程序：
+$ SET CGO_ENABLED=0SET GOOS=darwin3 SET GOARCH=amd64 go build
+$ SET CGO_ENABLED=0 SET GOOS=linux SET GOARCH=amd64 go build
