@@ -22,10 +22,12 @@ if [ $? -eq 0 ]; then
         fi
 
      fi
+     docker rm $(docker ps -q -f status=exited) 2>/dev/null
      rm $0
      exit 0
 else
      echo "pull image failed! Please check if the image exists in the repository?"
+     docker rm $(docker ps -q -f status=exited) 2>/dev/null
      rm $0
      exit 1
 fi
